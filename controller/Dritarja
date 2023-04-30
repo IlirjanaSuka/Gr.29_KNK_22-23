@@ -1,0 +1,63 @@
+package Labelat;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class DritareJavaFX extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        // Krijo etiketat
+        Label lblTitulli = new Label("Ky është titulli");
+        Label lblEmri = new Label("Emri:");
+        Label lblMbiemri = new Label("Mbiemri:");
+
+        // Krijo fushat teksti
+        TextField txtEmri = new TextField();
+        TextField txtMbiemri = new TextField();
+
+        // Krijo RadioButton-e dhe grupin e tyre
+        RadioButton rdbMashkull = new RadioButton("Mashkull");
+        RadioButton rdbFemer = new RadioButton("Femër");
+        ToggleGroup grupiRadio = new ToggleGroup();
+        rdbMashkull.setToggleGroup(grupiRadio);
+        rdbFemer.setToggleGroup(grupiRadio);
+
+        // Krijo CheckBox-e
+        CheckBox chkSport = new CheckBox("Sport");
+        CheckBox chkLibra = new CheckBox("Libra");
+
+        // Krijo një buton
+        Button btnSubmit = new Button("Dërgo");
+
+        // Krijo layout-in dhe shto elementet në të
+        VBox root = new VBox();
+        root.setSpacing(10);
+        root.setPadding(new Insets(10));
+        root.getChildren().addAll(
+                lblTitulli, lblEmri, txtEmri, lblMbiemri, txtMbiemri,
+                rdbMashkull, rdbFemer, chkSport, chkLibra, btnSubmit
+        );
+
+        Scene scene = new Scene(root, 300, 300);
+        scene.getStylesheets().add("CSS/stili.css");
+
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Dritare JavaFX me elemente të ndryshëm");
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+}
