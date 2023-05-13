@@ -34,7 +34,7 @@ public class HelloController {
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/knk";
     private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "Lana.1234";
+    private static final String DB_PASSWORD = "";
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
