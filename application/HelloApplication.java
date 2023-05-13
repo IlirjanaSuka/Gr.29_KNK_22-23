@@ -1,4 +1,3 @@
-package com.example.projectknk;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
