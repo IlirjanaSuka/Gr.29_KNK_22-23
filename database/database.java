@@ -1,7 +1,8 @@
-package com.example.projectknk;
+package com.example.loginstyle;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+
 
 public class database {
 
@@ -11,8 +12,7 @@ public class database {
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/knk", "root", "");
-            return connect;
+            return DriverManager.getConnection("jdbc:mysql://localhost/knk", "root", "Lana.1234");
         }catch(Exception e){e.printStackTrace();}
         return null;
     }
