@@ -1,27 +1,34 @@
+package com.example.loginstyle;
 
+
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import java.sql.*;
-
-
-public class HelloController {
-
-    @FXML
-    private Button button;
-
-    @FXML
-    private TextField email;
-
-    @FXML
-    private TextField id;
+public class HelloController implements Initializable {
 
     @FXML
-    private Label log;
+    private FontAwesomeIconView button;
 
     @FXML
-    private AnchorPane main_form;
+    private Button loginBtn;
 
     @FXML
     private PasswordField password;
@@ -29,38 +36,91 @@ public class HelloController {
     @FXML
     private TextField username;
 
-    @FXML
-    private Label wlc;
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/knk";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "";
+    private Connection connect;
+    private PreparedStatement prepare;
+    private ResultSet result;
 
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-    }
 
-    public void handleLoginButtonAction() {
-        try (Connection connection = getConnection()) {
-            String query = "SELECT * FROM users WHERE username = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, username.getText());
-            ResultSet resultSet = statement.executeQuery();
 
-            if (resultSet.next()) {              
-                String storedPassword = resultSet.getString("password");
-                String enteredPassword = password.getText();
+    private double x= 0 ;
+    private double y= 0;
 
-                if (storedPassword.equals(enteredPassword)) {                   
-                    log.setText("Login successful");                  
-                } else {
-                    log.setText("Invalid password");
+    public void loginAdmin(){
+
+        String sql = "SELECT * FROM admin WHERE username = ? and password = ?";
+
+         connect = database.connectDb();
+
+        try{ // IT WORKS GOOD : ) NOW LETS DESIGN THE DASHBOARD FORM : )
+            Alert alert;
+
+            prepare = connect.prepareStatement(sql);
+            prepare.setString(1, username.getText());
+            prepare.setString(2, password.getText());
+
+             result = prepare.executeQuery();
+//            CHECK IF FIELDS ARE EMPTTY
+            if(username.getText().isEmpty() || password.getText().isEmpty()){
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+            }else{
+                if(result.next()){
+//                    THEN PROCEED TO DASHBOARD FORM
+
+//                    getData.username = username.getText();  ***********
+
+                    alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Login!");
+                    alert.showAndWait();
+
+//                    TO HIDE THE LOGIN FORM
+                    loginBtn.getScene().getWindow().hide();
+                    //LINK YOUR DASHBOARD
+                    Parent root = FXMLLoader.load(getClass().getResource("x.fxml"));
+
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(root);
+
+                    root.setOnMousePressed((MouseEvent event) ->{
+                        x = event.getSceneX();
+                        y = event.getSceneY();
+                    });
+
+                    root.setOnMouseDragged((MouseEvent event) ->{
+                        stage.setX(event.getScreenX() - x);
+                        stage.setY(event.getScreenY() - y);
+                    });
+
+                    stage.initStyle(StageStyle.TRANSPARENT);
+
+                    stage.setScene(scene);
+                    stage.show();
+
+                }else{
+                    // THEN ERROR MESSAGE WILL APPEAR
+                    alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Wrong Username/Password");
+                    alert.showAndWait();
                 }
-            } else {
-                log.setText("User not found");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        }catch(Exception e){e.printStackTrace();}
+
     }
-};
+
+    public void close(){
+        System.exit(0);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+}
