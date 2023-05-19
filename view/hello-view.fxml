@@ -9,43 +9,33 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginstyle.HelloController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo16.HelloController">
    <children>
-      <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4ea0bc;">
+      <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #64cc4f;">
          <children>
-            <AnchorPane layoutY="1.0" prefHeight="400.0" prefWidth="285.0" style="-fx-background-color: #4ea0bc;" AnchorPane.rightAnchor="0.0" />
-            <AnchorPane layoutX="314.0" layoutY="1.0" prefHeight="400.0" prefWidth="285.0" style="-fx-background-color: #b8e3f2;" AnchorPane.rightAnchor="0.0">
+            <AnchorPane layoutX="2.0" prefHeight="400.0" prefWidth="290.0" style="-fx-background-color: #64cc4f;" AnchorPane.rightAnchor="0.0" />
+            <AnchorPane layoutX="309.0" layoutY="5.0" prefHeight="400.0" prefWidth="290.0" style="-fx-background-color: #a8dc3f;" AnchorPane.rightAnchor="0.0">
                <children>
-                  <FontAwesomeIconView fill="#4ea0bc" glyphName="USER" layoutX="125.0" layoutY="96.0" size="50" />
-                  <Label alignment="CENTER" layoutX="110.0" layoutY="112.0" text="LOG IN:" textFill="#4ea0bc">
+                  <FontAwesomeIconView fill="#fffafa" glyphName="USER" layoutX="137.0" layoutY="88.0" size="40" wrappingWidth="29.5999755859375" />
+                  <Label alignment="CENTER" layoutX="106.0" layoutY="110.0" prefHeight="23.0" prefWidth="90.0" text="Log in:" textFill="WHITE">
                      <font>
-                        <Font name="Tahoma" size="18.0" />
+                        <Font name="Tahoma" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="username" layoutX="33.0" layoutY="162.0" onAction="#loginAdmin" prefHeight="30.0" prefWidth="220.0" promptText="Username" />
-                  <PasswordField fx:id="password" layoutX="33.0" layoutY="238.0" onAction="#loginAdmin" prefHeight="30.0" prefWidth="220.0" promptText="Password" />
-                  <Button fx:id="loginBtn" layoutX="33.0" layoutY="295.0" mnemonicParsing="false" onAction="#loginAdmin" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #4ea0bc;" text="Log in" textFill="WHITE">
-                     <font>
-                        <Font name="Tahoma" size="18.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="close" layoutX="227.0" layoutY="14.0" mnemonicParsing="false" onAction="#close" prefHeight="24.0" prefWidth="43.0" style="-fx-background-color: #4ea0bc;" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+                  <TextField fx:id="username" layoutX="54.0" layoutY="157.0" prefHeight="40.0" prefWidth="198.0" promptText="Username" />
+                  <PasswordField fx:id="password" layoutX="54.0" layoutY="234.0" prefHeight="40.0" prefWidth="198.0" promptText="Password" />
+                  <Button fx:id="loginBtn" layoutX="81.0" layoutY="303.0" mnemonicParsing="false" onAction="#loginAdmin" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #64cc4f;" text="Login" textFill="#fffafa" />
+                  <Label layoutX="248.0" layoutY="14.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
+                  <Button fx:id="close" layoutX="227.0" layoutY="7.0" mnemonicParsing="false" onAction="#close" prefHeight="26.0" prefWidth="30.0" style="-fx-background-color: #64cc4f;" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
                      <graphic>
-                        <FontAwesomeIconView fx:id="button" fill="WHITE" glyphName="CLOSE" size="1.2em" />
+                        <FontAwesomeIconView fill="#fffafa" glyphName="CLOSE" />
                      </graphic>
                   </Button>
                </children>
             </AnchorPane>
-            <FontAwesomeIconView fill="WHITE" glyphName="GRADUATION_CAP" layoutX="109.0" layoutY="189.0" size="80" text="" />
-            <Label layoutX="71.0" layoutY="227.0" text="Welcome to our page!" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
+            <FontAwesomeIconView fill="WHITE" glyphName="GRADUATION_CAP" layoutX="121.0" layoutY="193.0" size="60" />
+            <Label alignment="CENTER" layoutX="91.0" layoutY="223.0" prefHeight="34.0" prefWidth="137.0" text="Welcome to our page!" textFill="#fffbfb" />
          </children>
       </AnchorPane>
    </children>
 </StackPane>
-
-
