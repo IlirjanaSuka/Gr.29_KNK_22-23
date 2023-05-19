@@ -1,18 +1,18 @@
-package com.example.loginstyle;
+package com.example.demo16;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-
+import java.sql.*;
 
 public class database {
 
-    public static Connection connectDb(){
+
+    public static Connection connectDb() {
 
         try{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            return DriverManager.getConnection("jdbc:mysql://localhost/knk", "root", "Lana.1234");
+            Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/knk", "root", "");
+            return connect;
         }catch(Exception e){e.printStackTrace();}
         return null;
     }
