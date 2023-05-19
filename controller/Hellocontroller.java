@@ -1,13 +1,14 @@
-package com.example.loginstyle;
+package com.example.demo16;
 
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,16 +20,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 
 public class HelloController implements Initializable {
 
     @FXML
-    private FontAwesomeIconView button;
+    private Button close;
 
     @FXML
     private Button loginBtn;
+
+    @FXML
+    private AnchorPane main_form;
 
     @FXML
     private PasswordField password;
@@ -36,12 +42,9 @@ public class HelloController implements Initializable {
     @FXML
     private TextField username;
 
-
     private Connection connect;
     private PreparedStatement prepare;
     private ResultSet result;
-
-
 
     private double x= 0 ;
     private double y= 0;
@@ -50,17 +53,17 @@ public class HelloController implements Initializable {
 
         String sql = "SELECT * FROM admin WHERE username = ? and password = ?";
 
-         connect = database.connectDb();
+        connect = database.connectDb();
 
-        try{ // IT WORKS GOOD : ) NOW LETS DESIGN THE DASHBOARD FORM : )
+        try{ 
             Alert alert;
 
             prepare = connect.prepareStatement(sql);
             prepare.setString(1, username.getText());
             prepare.setString(2, password.getText());
 
-             result = prepare.executeQuery();
-//            CHECK IF FIELDS ARE EMPTTY
+            result = prepare.executeQuery();
+
             if(username.getText().isEmpty() || password.getText().isEmpty()){
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
@@ -71,7 +74,7 @@ public class HelloController implements Initializable {
                 if(result.next()){
 //                    THEN PROCEED TO DASHBOARD FORM
 
-//                    getData.username = username.getText();  ***********
+                    getData.username = username.getText();
 
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");
@@ -79,10 +82,9 @@ public class HelloController implements Initializable {
                     alert.setContentText("Successfully Login!");
                     alert.showAndWait();
 
-//                    TO HIDE THE LOGIN FORM
+
                     loginBtn.getScene().getWindow().hide();
-                    //LINK YOUR DASHBOARD
-                    Parent root = FXMLLoader.load(getClass().getResource("x.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
 
                     Stage stage = new Stage();
                     Scene scene = new Scene(root);
@@ -103,7 +105,6 @@ public class HelloController implements Initializable {
                     stage.show();
 
                 }else{
-                    // THEN ERROR MESSAGE WILL APPEAR
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Error Message");
                     alert.setHeaderText(null);
@@ -115,9 +116,11 @@ public class HelloController implements Initializable {
 
     }
 
-    public void close(){
-        System.exit(0);
+    @FXML
+    void close(ActionEvent event) {
+
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
