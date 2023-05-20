@@ -229,7 +229,7 @@
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <TableView fx:id="availableCourses_tableView" layoutX="9.0" layoutY="13.0" onMouseClicked="#availableCoursesSelect" prefHeight="587.0" prefWidth="563.0">
+                                    <TableView fx:id="availableCourses_tableView" layoutX="9.0" layoutY="13.0" onMouseClicked="#availableCourseSelect" prefHeight="587.0" prefWidth="563.0">
                                       <columns>
                                         <TableColumn fx:id="availableCourse_col_course" prefWidth="103.20001220703125" text="Course" />
                                         <TableColumn fx:id="availableCourse_col_description" prefWidth="192.79998779296875" text="Description" />
