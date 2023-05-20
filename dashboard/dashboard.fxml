@@ -189,6 +189,59 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane fx:id="availableCourses_form" layoutX="14.0" layoutY="14.0" prefHeight="644.0" prefWidth="898.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane layoutX="14.0" layoutY="16.0" prefHeight="611.0" prefWidth="269.0" stylesheets="@desing.css">
+                                 <styleClass>
+                                    <String fx:value="white-bg" />
+                                    <String fx:value="shadow" />
+                                 </styleClass>
+                                 <children>
+                                    <Label layoutX="39.0" layoutY="47.0" text="Course:">
+                                       <font>
+                                          <Font name="Tahoma" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="availableCourse_course" layoutX="100.0" layoutY="44.0" prefHeight="26.0" prefWidth="155.0" styleClass="textfield" stylesheets="@desing.css" />
+                                    <Label layoutX="12.0" layoutY="87.0" text="Description:">
+                                       <font>
+                                          <Font name="Tahoma" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="availableCourse_description" layoutX="100.0" layoutY="83.0" prefHeight="26.0" prefWidth="155.0" styleClass="textfield" stylesheets="@desing.css" />
+                                    <Label layoutX="38.0" layoutY="124.0" text="Degree:">
+                                       <font>
+                                          <Font name="Tahoma" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="availableCourse_degree" layoutX="101.0" layoutY="121.0" prefHeight="26.0" prefWidth="155.0" styleClass="textfield" stylesheets="@desing.css" />
+                                    <Button fx:id="availableCourse_addBtn" layoutX="22.0" layoutY="212.0" mnemonicParsing="false" onAction="#availableCourseAdd" prefHeight="41.0" prefWidth="85.0" styleClass="add-btn" stylesheets="@desing.css" text="Add" />
+                                    <Button fx:id="availableCourse_updateBtn" layoutX="151.0" layoutY="212.0" mnemonicParsing="false" onAction="#availableCourseUpdate" prefHeight="41.0" prefWidth="85.0" styleClass="update-btn" stylesheets="@desing.css" text="Update" />
+                                    <Button fx:id="availableCourse_clearBtn" layoutX="22.0" layoutY="285.0" mnemonicParsing="false" onAction="#availableCourseClear" prefHeight="41.0" prefWidth="85.0" styleClass="clear-btn" stylesheets="@desing.css" text="Clear" />
+                                    <Button fx:id="availableCourse_deleteBtn" layoutX="151.0" layoutY="285.0" mnemonicParsing="false" onAction="#availableCourseDelete" prefHeight="41.0" prefWidth="85.0" styleClass="delete-btn" stylesheets="@desing.css" text="Delete" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="305.0" layoutY="16.0" onMouseClicked="#availableCourseSelect" prefHeight="611.0" prefWidth="578.0" stylesheets="@desing.css">
+                                 <styleClass>
+                                    <String fx:value="white-bg" />
+                                    <String fx:value="shadow" />
+                                 </styleClass>
+                                 <children>
+                                    <TableView fx:id="availableCourses_tableView" layoutX="9.0" layoutY="13.0" onMouseClicked="#availableCoursesSelect" prefHeight="587.0" prefWidth="563.0">
+                                      <columns>
+                                        <TableColumn fx:id="availableCourse_col_course" prefWidth="103.20001220703125" text="Course" />
+                                        <TableColumn fx:id="availableCourse_col_description" prefWidth="192.79998779296875" text="Description" />
+                                          <TableColumn fx:id="availableCourse_col_degree" prefWidth="265.5999755859375" text="Degree" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </center>
