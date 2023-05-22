@@ -11,7 +11,7 @@ import javafx.application.Application;
         import javafx.stage.StageStyle;
 
 
-public class StudentsMainAdd extends Application {
+public class AddStudentsMain extends Application {
 
     private double x = 0 ;
     private double y = 0;
