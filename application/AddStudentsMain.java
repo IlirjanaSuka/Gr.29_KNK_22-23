@@ -21,7 +21,7 @@ public class AddStudentsMain extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("add_students.fxml"));
 
         Scene scene = new Scene(root);
-//        LETS DESIGN IT USING CSS : )
+
 
         root.setOnMousePressed((MouseEvent event) ->{
             x = event.getSceneX();
