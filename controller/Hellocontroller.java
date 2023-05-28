@@ -55,7 +55,7 @@ public class HelloController implements Initializable {
 
         connect = database.connectDb();
 
-        try{ 
+        try{
             Alert alert;
 
             prepare = connect.prepareStatement(sql);
@@ -117,8 +117,8 @@ public class HelloController implements Initializable {
     }
 
     @FXML
-    void close(ActionEvent event) {
-
+    void close() {
+        System.exit(0);
     }
 
 
