@@ -10,7 +10,8 @@ public class Dashboard extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Dashboard.class.getResource("dashboard.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.
+                load(), 1100, 600);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
