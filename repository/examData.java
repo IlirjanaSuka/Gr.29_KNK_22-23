@@ -1,22 +1,37 @@
 package com.example.demo16;
-public class courseData {
 
-    private String student;
-    private String semester;
+public class examData {
+    private String studentNum;
+    private String data;
+    private String course1;
+    private String sem;
     private String price;
 
-    public courseData(String student, String semester, String price){
-        this.student=student;
-        this.semester=semester;
-        this.price=price;
+    public examData(String studentNum, String data, String course1, String sem, String price) {
+        this.studentNum = studentNum;
+        this.data = data;
+        this.course1 = course1;
+        this.sem = sem;
+        this.price = price;
     }
-    public String getStudent(){
-        return student;
+
+    public String getStudentNum() {
+        return studentNum;
     }
-    public  String getSemester(){
-        return semester;
+
+    public String getData() {
+        return data;
     }
-    public  String getPrice(){
+
+    public String getCourse1() {
+        return course1;
+    }
+
+    public String getSem() {
+        return sem;
+    }
+
+    public String getPrice() {
         return price;
     }
 }
