@@ -11,9 +11,10 @@ public class database {
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/knk", "root", "");
+            Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/knk", "root", "Lana.1234");
             return connect;
-        }catch(Exception e){e.printStackTrace();}
+        }catch(Exception e)
+        {e.printStackTrace();}
         return null;
     }
 
