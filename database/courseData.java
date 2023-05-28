@@ -1,23 +1,22 @@
-package com.example.avaliablecourses;
-
+package com.example.demo16;
 public class courseData {
 
-    private String course;
-    private String description;
-    private String degree;
+    private String student;
+    private String semester;
+    private String price;
 
-    public courseData(String course, String description, String degree){
-        this.course=course;
-        this.description=description;
-        this.degree=degree;
+    public courseData(String student, String semester, String price){
+        this.student=student;
+        this.semester=semester;
+        this.price=price;
     }
-    public String getCourse(){
-        return course;
+    public String getStudent(){
+        return student;
     }
-    public  String getDescription(){
-        return description;
+    public  String getSemester(){
+        return semester;
     }
-    public  String getDegree(){
-        return degree;
+    public  String getPrice(){
+        return price;
     }
 }
