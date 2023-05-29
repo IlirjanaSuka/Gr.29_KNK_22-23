@@ -1,0 +1,67 @@
+<AnchorPane fx:id="ExamPayment_form" layoutX="59.0" layoutY="47.0" prefHeight="555.0" prefWidth="897.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+ <children>
+ <AnchorPane layoutX="25.0" layoutY="17.0" prefHeight="522.0" prefWidth="270.0" style="-fx-background-color: #fff;">
+
+ <children>
+ <TextField fx:id="ExamPayment_studentNum" layoutX="118.0" layoutY="29.0" prefHeight="25.0" prefWidth="139.0" />
+ <Label layoutX="29.0" layoutY="33.0" text="Student #:">
+ <font>
+ <Font name="Tahoma Bold" size="14.0" />
+ </font>
+ </Label>
+ <TextField fx:id="ExamPayment_data" layoutX="118.0" layoutY="71.0" prefHeight="25.0" prefWidth="139.0" />
+ <Label layoutX="52.0" layoutY="75.0" text="Data:">
+ <font>
+ <Font name="Tahoma Bold" size="14.0" />
+ </font>
+ </Label>
+ <Button fx:id="ExamPayment_addBtn" layoutX="145.0" layoutY="241.0" mnemonicParsing="false" onAction="#ExamPaymentAdd" prefHeight="40.0" prefWidth="93.0" style="-fx-background-color: #2d7755;" />
+ <Button fx:id="ExamPayment_clearBtn" layoutX="23.0" layoutY="241.0" mnemonicParsing="false" onAction="#ExamPaymentClear" prefHeight="40.0" prefWidth="93.0" style="-fx-background-color: #6e2275;" textFill="WHITE" />
+ <Label layoutX="53.0" layoutY="252.0" text="Clear" textFill="WHITE" />
+ <Label layoutX="172.0" layoutY="252.0" style="-fx-background-color: #2d7755;" text="Add" textFill="WHITE" />
+ <Label layoutX="49.0" layoutY="117.0" text="Course:">
+ <font>
+ <Font name="Tahoma Bold" size="14.0" />
+ </font>
+ </Label>
+ <Label layoutX="49.0" layoutY="157.0" text="Sem:">
+ <font>
+ <Font name="Tahoma Bold" size="14.0" />
+ </font>
+ </Label>
+ <Label layoutX="49.0" layoutY="191.0" text="Price:">
+ <font>
+ <Font name="Tahoma Bold" size="14.0" />
+ </font>
+ </Label>
+ <TextField fx:id="ExamPayment_course1" layoutX="118.0" layoutY="113.0" prefHeight="25.0" prefWidth="139.0" />
+ <TextField fx:id="ExamPayment_sem" layoutX="118.0" layoutY="153.0" prefHeight="25.0" prefWidth="139.0" />
+ <TextField fx:id="ExamPayment_price" layoutX="117.0" layoutY="196.0" prefHeight="25.0" prefWidth="139.0" />
+ </children>
+ </AnchorPane>
+ <AnchorPane layoutX="296.0" layoutY="17.0" prefHeight="522.0" prefWidth="587.0">
+
+ <children>
+ <TableView fx:id="ExamPayment_tableView" layoutX="13.0" layoutY="52.0" onMouseClicked="#ExamPaymentSelect" prefHeight="456.0" prefWidth="562.0">
+ <columns>
+ <TableColumn fx:id="ExamPayment_col_studentNum" prefWidth="102.4000244140625" style="-fx-background-color: #2ca772;" text="Student #" />
+ <TableColumn fx:id="ExamPayment_col_data" prefWidth="100.79998779296875" style="-fx-background-color: #2ca772;" text="Data" />
+ <TableColumn fx:id="ExamPayment_col_course1" prefWidth="88.0" style="-fx-background-color: #2ca772;" text="Course" />
+ <TableColumn fx:id="ExamPayment_col_Sem" prefWidth="143.99993896484375" style="-fx-background-color: #2ca772;" text="Sem" />
+ <TableColumn fx:id="ExamPayment_col_price" prefWidth="131.20001220703125" style="-fx-background-color: #2ca772;" text="Price" />
+ </columns>
+ </TableView>
+ <TextField fx:id="ExamPayment_search" layoutX="14.0" layoutY="14.0" onKeyTyped="#ExamPaymentSearch" prefHeight="30.0" prefWidth="269.0" promptText="Search" />
+<!-- <FontAwesomeIcon glyphName="SEARCH" layoutX="22.0" layoutY="35.0" size="1.5em" />-->
+ </children>
+ </AnchorPane>
+ </children>
+ </AnchorPane>
+ </children>
+ </AnchorPane>
+ </center>
+ </BorderPane>
+ </children>
+ </AnchorPane>
+ </children>
+</StackPane>
