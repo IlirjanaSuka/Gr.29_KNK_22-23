@@ -628,49 +628,24 @@ public class dashboardController implements Initializable {
         }
     }
 
-    public void addStudentsSearch() {
+      @FXML
+    void addStudentsSearch() {
+        String searchText = addStudents_search.getText().toLowerCase();
 
+        FilteredList<studentData> filteredData = new FilteredList<>(addStudents_tableView.getItems(), p ->
+                p.getFirstName().toLowerCase().contains(searchText) ||
+                        p.getLastName().toLowerCase().contains(searchText) ||
+                        p.getStudentNum().toLowerCase().contains(searchText) ||
+                        p.getCourse().toLowerCase().contains(searchText) ||
+                        p.getYear().toLowerCase().contains(searchText) ||
+                        p.getGender().toLowerCase().contains(searchText) ||
+                        p.getStatus().toLowerCase().contains(searchText));
 
-        FilteredList<studentData> filter = new FilteredList<>(addStudentsListD, e -> true);
-
-        addStudents_search.textProperty().addListener((Observable, oldValue, newValue) -> {
-
-            filter.setPredicate(predicateStudentData -> {
-
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String searchKey = newValue.toLowerCase();
-
-                if (predicateStudentData.getStudentNum().contains(searchKey)) {
-                    return true;
-                } else if (predicateStudentData.getYear().toLowerCase().contains(searchKey)) {
-                    return true;
-                } else if (predicateStudentData.getCourse().toLowerCase().contains(searchKey)) {
-                    return true;
-                } else if (predicateStudentData.getFirstName().toLowerCase().contains(searchKey)) {
-                    return true;
-                } else if (predicateStudentData.getLastName().toLowerCase().contains(searchKey)) {
-                    return true;
-                } else if (predicateStudentData.getGender().toLowerCase().contains(searchKey)) {
-                    return true;
-                } else if (predicateStudentData.getBirth().contains(searchKey)) {
-                    return true;
-                } else if (predicateStudentData.getStatus().toLowerCase().contains(searchKey)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-        });
-
-        SortedList<studentData> sortList = new SortedList<>(filter);
-
-        sortList.comparatorProperty().bind(addStudents_tableView.comparatorProperty());
-        addStudents_tableView.setItems(sortList);
-
+        SortedList<studentData> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(addStudents_tableView.comparatorProperty());
+        addStudents_tableView.setItems(sortedData);
     }
+
 
     private String[] yearList = {"1", "2", "3", "4", "5", "6"};
 
