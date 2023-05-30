@@ -1147,27 +1147,21 @@ public class dashboardController implements Initializable {
         ExamPayment_price.setText(examD.getPrice());
     }
 
-    public void ExamPaymentSearch() {
-        FilteredList<examData> filter = new FilteredList<>(ExamPaymentList, e -> true);
+     @FXML
+    void ExamPaymentSearch() {
+    String searchText = ExamPayment_search.getText().toLowerCase();
 
-        ExamPayment_search.textProperty().addListener((Observable, oldValue, newValue) -> {
-            filter.setPredicate(predicateExamData -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String searchKey = newValue.toLowerCase();
-                return predicateExamData.getStudentNum().toLowerCase().contains(searchKey)
-                        || predicateExamData.getData().toLowerCase().contains(searchKey)
-                        || predicateExamData.getCourse1().toLowerCase().contains(searchKey)
-                        || predicateExamData.getSem().toLowerCase().contains(searchKey)
-                        || predicateExamData.getPrice().toLowerCase().contains(searchKey);
-            });
-        });
+    FilteredList<examData> filteredData = new FilteredList<>(ExamPayment_tableView.getItems(), p ->
+            p.getCourse1().toLowerCase().contains(searchText) ||
+                    p.getData().toLowerCase().contains(searchText) ||
+                    p.getStudentNum().toLowerCase().contains(searchText) ||
+                    p.getSem().toLowerCase().contains(searchText) ||
+                    p.getPrice().toLowerCase().contains(searchText));
 
-        SortedList<examData> sortList = new SortedList<>(filter);
-        sortList.comparatorProperty().bind(ExamPayment_tableView.comparatorProperty());
-        ExamPayment_tableView.setItems(sortList);
-    }
+    SortedList<examData> sortedData = new SortedList<>(filteredData);
+    sortedData.comparatorProperty().bind(ExamPayment_tableView.comparatorProperty());
+    ExamPayment_tableView.setItems(sortedData);
+}
 
     private double x = 0;
     private double y = 0;
