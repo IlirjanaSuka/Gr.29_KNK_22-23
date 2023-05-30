@@ -735,8 +735,6 @@ public class dashboardController implements Initializable {
         addStudents_status.setItems(ObList);
     }
 
-    //    NOW WE NEED THE COURSE, SO LETS WORK NOW THE AVAILABLE COURSE FORM : )
-//    LETS WORK FIRST THE ADD STUDENTS FORM : )
     public ObservableList<studentData> addStudentsListData() {
 
         ObservableList<studentData> listStudents = FXCollections.observableArrayList();
