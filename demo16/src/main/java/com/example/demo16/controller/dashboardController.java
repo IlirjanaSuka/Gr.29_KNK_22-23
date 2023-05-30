@@ -1301,29 +1301,29 @@ public class dashboardController implements Initializable {
         stage.setIconified(true);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        displayUsername();
-        defaultNav();
+   @Override
+public void initialize(URL location, ResourceBundle resources) {
 
-        homeDisplayTotalEnrolledStudents();
-        homeDisplayMaleEnrolled();
-        homeDisplayFemaleEnrolled();
-        homeDisplayEnrolledMaleChart();
-        homeDisplayFemaleEnrolledChart();
-        homeDisplayTotalEnrolledChart();
+    addStudents_search.textProperty().addListener((observable, oldValue, newValue) -> addStudentsSearch());
+    ExamPayment_search.textProperty().addListener((observable, oldValue, newValue) -> ExamPaymentSearch());
+    displayUsername();
+    defaultNav();
 
-        addStudentsShowListData();
-        addStudentsYearList();
-        addStudentsGenderList();
-        addStudentsStatusList();
-        addStudentsCourseList();
+    homeDisplayTotalEnrolledStudents();
+    homeDisplayMaleEnrolled();
+    homeDisplayFemaleEnrolled();
+    homeDisplayEnrolledMaleChart();
+    homeDisplayFemaleEnrolledChart();
+    homeDisplayTotalEnrolledChart();
 
-        availableCourseShowListData();
+    addStudentsShowListData();
+    addStudentsYearList();
+    addStudentsGenderList();
+    addStudentsStatusList();
+    addStudentsCourseList();
 
-        ExamPaymentShowListData();
+    availableCourseShowListData();
 
-    }
+    ExamPaymentShowListData();
 
 }
-
