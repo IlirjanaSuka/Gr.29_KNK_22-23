@@ -231,7 +231,7 @@
                                         </AnchorPane>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane fx:id="addStudents_form" layoutX="99.0" layoutY="143.0" prefHeight="555.0" prefWidth="897.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <AnchorPane fx:id="addStudents_form" layoutX="99.0" layoutY="143.0" prefHeight="555.0" prefWidth="897.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
                                         <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="527.0" prefWidth="870.0" style="-fx-background-color: #fff;">
 
@@ -345,16 +345,18 @@
                                                 <Button fx:id="SemesterPayments_updateBtn" layoutX="162.0" layoutY="200.0" mnemonicParsing="false" onAction="#SemesterPaymentsUpdate" prefHeight="41.0" prefWidth="85.0" style="-fx-background-color: #2d7755;" text="Update" textFill="WHITE" />
                                                 <Button fx:id="SemesterPayments_clearBtn" layoutX="22.0" layoutY="259.0" mnemonicParsing="false" onAction="#SemesterPaymentsClear" prefHeight="41.0" prefWidth="85.0" style="-fx-background-color: #6e2275;" text="Clear" textFill="WHITE" />
                                                 <Button fx:id="SemesterPayments_deleteBtn" layoutX="162.0" layoutY="259.0" mnemonicParsing="false" onAction="#SemesterPaymentsDelete" prefHeight="41.0" prefWidth="85.0" style="-fx-background-color: #90242f;" text="Delete" textFill="WHITE" />
+                                    <Button layoutX="3.0" layoutY="492.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="81.0" text="Print" />
+                                    <FontAwesomeIconView glyphName="PRINT" layoutX="12.0" layoutY="511.0" size="1.4EM" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane layoutX="304.0" layoutY="19.0" prefHeight="517.0" prefWidth="579.0">
 
                                             <children>
-                                                <TableView fx:id="SemesterPayments_tableView" layoutX="11.0" layoutY="13.0" onMouseClicked="#SemesterPaymentsSelect" prefHeight="490.0" prefWidth="557.0">
+                                                <TableView fx:id="SemesterPayments_tableView" layoutX="-2.0" layoutY="-2.0" onMouseClicked="#SemesterPaymentsSelect" prefHeight="506.0" prefWidth="582.0" style="-fx-color: white;">
                                                     <columns>
-                                                        <TableColumn fx:id="SemesterPayments_col_student" prefWidth="140.79998779296875" style="-fx-background-color: #2ca772;" text="Student" />
-                                                        <TableColumn fx:id="SemesterPayments_col_semester" prefWidth="198.4000244140625" style="-fx-background-color: #2ca772;" text="Semester" />
-                                                        <TableColumn fx:id="SemesterPayments_col_price" prefWidth="217.59991455078125" style="-fx-background-color: #2ca772;" text="Price" />
+                                                        <TableColumn fx:id="SemesterPayments_col_student" prefWidth="183.199951171875" style="-fx-background-color: #2ca772;" text="Student" />
+                                                        <TableColumn fx:id="SemesterPayments_col_semester" prefWidth="196.800048828125" style="-fx-background-color: #2ca772;" text="Semester" />
+                                                        <TableColumn fx:id="SemesterPayments_col_price" prefWidth="192.800048828125" style="-fx-background-color: #2ca772;" text="Price" />
                                                     </columns>
                                                 </TableView>
                                             </children>
@@ -400,6 +402,8 @@
                                                 <TextField fx:id="ExamPayment_course1" layoutX="118.0" layoutY="113.0" prefHeight="25.0" prefWidth="139.0" />
                                                 <TextField fx:id="ExamPayment_sem" layoutX="118.0" layoutY="153.0" prefHeight="25.0" prefWidth="139.0" />
                                                 <TextField fx:id="ExamPayment_price" layoutX="117.0" layoutY="196.0" prefHeight="25.0" prefWidth="139.0" />
+                                    <Button layoutX="-3.0" layoutY="496.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="83.0" text="Print" />
+                                    <FontAwesomeIconView glyphName="PRINT" layoutX="6.0" layoutY="515.0" size="1.4EM" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane layoutX="296.0" layoutY="17.0" prefHeight="522.0" prefWidth="587.0">
