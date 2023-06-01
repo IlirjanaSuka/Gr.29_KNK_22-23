@@ -21,7 +21,7 @@
                         <PasswordField fx:id="password" layoutX="54.0" layoutY="234.0" prefHeight="40.0" prefWidth="198.0" promptText="Password" />
                         <Button fx:id="loginBtn" layoutX="81.0" layoutY="303.0" mnemonicParsing="false" onAction="#loginAdmin" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: blue;" text="Login" textFill="WHITE" />
                         <Label layoutX="248.0" layoutY="14.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
-                        <Button fx:id="close" layoutX="227.0" layoutY="7.0" mnemonicParsing="false" onAction="#close" prefHeight="26.0" prefWidth="30.0" style="-fx-background-color: blue;" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+                        <Button fx:id="close" layoutX="227.0" layoutY="7.0" mnemonicParsing="false"  prefHeight="26.0" prefWidth="30.0" style="-fx-background-color: blue;" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
                             <graphic>
                                 <FontAwesomeIconView fill="#fffafa" glyphName="CLOSE" />
                             </graphic>
@@ -31,6 +31,7 @@
                                 <Font name="System Bold" size="15.0" />
                             </font>
                         </Label>
+                  <Button fx:id="registerbtn" layoutX="232.0" layoutY="361.0" mnemonicParsing="false"  style="-fx-background-color: #3ab0b4;" text="Register" />
                     </children>
                 </AnchorPane>
                 <FontAwesomeIconView fill="WHITE" glyphName="GRADUATION_CAP" layoutX="121.0" layoutY="193.0" size="60" />
