@@ -1,18 +1,18 @@
-create database knk;
-use knk;
+CREATE DATABASE knk;
+USE knk;
 
-
-create table admin(
-username nvarchar(100),
-password nvarchar(100)
+CREATE TABLE admin (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL
 );
 
-insert into admin( username, password) value('admin1', '123'),('admin2', '1234');
-
+INSERT INTO admin (username, password, role) VALUES ('admin', '123', 'admin');
 
 
 CREATE TABLE student (
-  id INT PRIMARY KEY AUTO_INCREMENT,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   studentNum VARCHAR(20) NOT NULL,
   year VARCHAR(20) NOT NULL,
   course VARCHAR(50) NOT NULL,
@@ -23,12 +23,28 @@ CREATE TABLE student (
   status VARCHAR(20) NOT NULL,
   image VARCHAR(100) NOT NULL,
   date DATE NOT NULL,
-  INDEX idx_studentNum (studentNum) 
+  INDEX idx_studentNum (studentNum),
+  INDEX idx_student_year (year),
+  INDEX idx_firstName (firstName),
+  INDEX idx_lastName (lastName)
 );
-CREATE INDEX idx_student_year ON student (year);
+
+CREATE TABLE user (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  studentNum VARCHAR(20) NOT NULL,
+  firstName VARCHAR(50) NOT NULL,
+  lastName VARCHAR(50) NOT NULL,
+  password NVARCHAR(30) NOT NULL,
+  cpassword NVARCHAR(30) NOT NULL,
+  FOREIGN KEY (studentNum) REFERENCES student(studentNum),
+  FOREIGN KEY (firstName) REFERENCES student(firstName),
+  FOREIGN KEY (lastName) REFERENCES student(lastName)
+);
+ALTER TABLE `user` MODIFY COLUMN `password` NVARCHAR(30);
+select*from user;
 
 CREATE TABLE student_grade (
-  id INT PRIMARY KEY AUTO_INCREMENT,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   studentNum VARCHAR(20) NOT NULL,
   year VARCHAR(20) NOT NULL,
   course VARCHAR(50) NOT NULL,
@@ -39,28 +55,28 @@ CREATE TABLE student_grade (
 );
 
 
-
-
-
 CREATE TABLE course (
-  id INT PRIMARY KEY AUTO_INCREMENT,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   course VARCHAR(50) NOT NULL,
-  INDEX idx_course (course) 
+  INDEX idx_course (course)
 );
 
 INSERT INTO course (course) VALUES
- ('FIEK'),('FIM'),('FNA');
+  ('FIEK'),
+  ('FIM'),
+  ('FNA');
 
- CREATE TABLE semester (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  student VARCHAR(20) NOT NULL,
+drop table semester;
+CREATE TABLE semester (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  studentNum VARCHAR(20) NOT NULL,
   semester VARCHAR(20) NOT NULL,
   price VARCHAR(20) NOT NULL,
-  foreign key(student) references student(studentNum),
-foreign key(semester) references student(year) 
+  FOREIGN KEY (studentNum) REFERENCES student(studentNum),
+  FOREIGN KEY (semester) REFERENCES student(year)
 );
 
-
+drop table student_payments;
 CREATE TABLE student_payments (
   id INT AUTO_INCREMENT PRIMARY KEY,
   studentNum VARCHAR(50) NOT NULL,
