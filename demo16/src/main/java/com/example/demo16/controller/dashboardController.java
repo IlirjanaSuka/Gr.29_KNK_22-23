@@ -50,8 +50,10 @@ import javafx.stage.StageStyle;
 
 
 
+
 public class dashboardController implements Initializable {
 
+    dashboard1Controller dashboard1Controller1=new dashboard1Controller();
     @FXML
     private AnchorPane main_form;
 
@@ -105,6 +107,7 @@ public class dashboardController implements Initializable {
 
     @FXML
     private TextField addStudents_search;
+
 
     @FXML
     private TableView<studentData> addStudents_tableView;
@@ -199,12 +202,11 @@ public class dashboardController implements Initializable {
     @FXML
     private Button SemesterPayments_deleteBtn;
 
+
     @FXML
     private TableView<courseData> SemesterPayments_tableView;
-
     @FXML
     private TableColumn<courseData, String> SemesterPayments_col_student;
-
     @FXML
     private TableColumn<courseData, String> SemesterPayments_col_semester;
 
@@ -262,7 +264,15 @@ public class dashboardController implements Initializable {
     private Statement statement;
     private ResultSet result;
 
-    private Image image;   public void homeDisplayTotalEnrolledStudents() {
+    private Image image;
+
+
+
+
+    private Button selectedButton;
+
+
+    public void homeDisplayTotalEnrolledStudents() {
         String sql = "SELECT COUNT(id) FROM student";
 
         connect = database.connectDb();
@@ -415,7 +425,8 @@ public class dashboardController implements Initializable {
 
 
     public void addStudentsAdd() {
-        String insertData = "INSERT INTO student (studentNum, year, course, firstName, lastName, gender, birth, status, image, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        String insertData = "INSERT INTO student (studentNum, year, course, firstName, lastName, gender, birth, status, image, date) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,?, ?)";
         connect = database.connectDb();
 
         try {
@@ -425,7 +436,7 @@ public class dashboardController implements Initializable {
                     || addStudents_course.getSelectionModel().getSelectedItem() == null || addStudents_firstName.getText().isEmpty()
                     || addStudents_lastName.getText().isEmpty() || addStudents_gender.getSelectionModel().getSelectedItem() == null
                     || addStudents_birth.getValue() == null || addStudents_status.getSelectionModel().getSelectedItem() == null
-                    || getData.path == null || getData.path.isEmpty()) {
+                    || getData.path == null || getData.path.isEmpty()|| addStudents_status.getSelectionModel().getSelectedItem() == null) {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
@@ -476,6 +487,7 @@ public class dashboardController implements Initializable {
             e.printStackTrace();
         }
     }
+
     public void addStudentsUpdate() {
 
         String uri = getData.path;
@@ -543,7 +555,6 @@ public class dashboardController implements Initializable {
     }
 
 
-
     public void addStudentsDelete() {
         String deleteData = "DELETE FROM student WHERE studentNum = ?";
         String deleteGradeData = "DELETE FROM student_grade WHERE studentNum = ?";
@@ -595,6 +606,7 @@ public class dashboardController implements Initializable {
             e.printStackTrace();
         }
     }
+
     public void addStudentsClear() {
         addStudents_studentNum.setText("");
         addStudents_studentNum.setText("");
@@ -628,7 +640,7 @@ public class dashboardController implements Initializable {
         }
     }
 
-      @FXML
+    @FXML
     void addStudentsSearch() {
         String searchText = addStudents_search.getText().toLowerCase();
 
@@ -661,6 +673,7 @@ public class dashboardController implements Initializable {
         addStudents_year.setItems(ObList);
 
     }
+
     public void addStudentsCourseList() {
 
         String listCourse = "SELECT * FROM course";
@@ -684,6 +697,7 @@ public class dashboardController implements Initializable {
         }
 
     }
+
     private String[] genderList = {"Male", "Female", "Others"};
 
     public void addStudentsGenderList() {
@@ -732,7 +746,8 @@ public class dashboardController implements Initializable {
                         result.getString("gender"),
                         result.getString("birth"),
                         result.getString("status"),
-                        result.getString("image"));
+                        result.getString("image")
+                );
 
                 listStudents.add(studentD);
             }
@@ -756,6 +771,7 @@ public class dashboardController implements Initializable {
         addStudents_col_gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
         addStudents_col_birth.setCellValueFactory(new PropertyValueFactory<>("birth"));
         addStudents_col_status.setCellValueFactory(new PropertyValueFactory<>("status"));
+
 
         addStudents_tableView.setItems(addStudentsListD);
 
@@ -783,522 +799,3 @@ public class dashboardController implements Initializable {
         getData.path = studentD.getImage();
 
     }
-
-    public void SemesterPaymentsAdd(){
-
-        String insertData = "INSERT INTO semester (student,semester,price) VALUES(?,?,?)";
-
-        connect = database.connectDb();
-
-        try {
-            Alert alert;
-
-            if (SemesterPayments_student.getText().isEmpty()
-                    || SemesterPayments_semester.getText().isEmpty()
-                    || SemesterPayments_price.getText().isEmpty()) {
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please fill all blank fields");
-                alert.showAndWait();
-            } else {
-                String checkData = "SELECT student FROM semester WHERE student = '"
-                        + SemesterPayments_student.getText() + "'";
-
-                statement = connect.createStatement();
-                result = statement.executeQuery(checkData);
-
-                if (result.next()) {
-                    alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Student: " + SemesterPayments_student.getText() + " was already exist!");
-                    alert.showAndWait();
-                } else {
-                    prepare = connect.prepareStatement(insertData);
-                    prepare.setString(1, SemesterPayments_student.getText());
-                    prepare.setString(2, SemesterPayments_semester.getText());
-                    prepare.setString(3, SemesterPayments_price.getText());
-
-                    prepare.executeUpdate();
-
-                    alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Added!");
-                    alert.showAndWait();
-
-
-                    availableCourseShowListData();
-                    SemesterPaymentsClear();
-
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void SemesterPaymentsUpdate() {
-        String updateData = "UPDATE semester SET semester = ?, price = ? WHERE student = ?";
-
-        connect = database.connectDb();
-
-        try {
-            Alert alert;
-
-            if (SemesterPayments_student.getText().isEmpty()
-                    || SemesterPayments_semester.getText().isEmpty()
-                    || SemesterPayments_price.getText().isEmpty()) {
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please fill all blank fields");
-                alert.showAndWait();
-            } else {
-                alert = new Alert(AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to UPDATE Course: " + SemesterPayments_student.getText() + "?");
-                Optional<ButtonType> option = alert.showAndWait();
-
-                if (option.get().equals(ButtonType.OK)) {
-                    PreparedStatement updateStatement = connect.prepareStatement(updateData);
-                    updateStatement.setString(1, SemesterPayments_semester.getText());
-                    updateStatement.setString(2, SemesterPayments_price.getText());
-                    updateStatement.setString(3, SemesterPayments_student.getText());
-                    updateStatement.executeUpdate();
-
-                    alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Updated!");
-                    alert.showAndWait();
-
-                    availableCourseShowListData();
-                    SemesterPaymentsClear();
-                } else {
-                    return;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    public void SemesterPaymentsDelete() {
-        String studentId = SemesterPayments_student.getText();
-        String deleteStudentData = "DELETE FROM semester WHERE student = ?";
-        String deletePaymentData = "DELETE FROM semester WHERE price = ?";
-        String deleteSemesterData = "DELETE FROM semester WHERE semester = ?";
-        connect = database.connectDb();
-
-        try {
-            Alert alert;
-
-            if (studentId.isEmpty()
-                    || SemesterPayments_semester.getText().isEmpty()
-                    || SemesterPayments_price.getText().isEmpty()) {
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please fill all blank fields");
-                alert.showAndWait();
-            } else {
-                alert = new Alert(AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to DELETE student: " + studentId + "?");
-                Optional<ButtonType> option = alert.showAndWait();
-
-                if (option.get().equals(ButtonType.OK)) {
-                    PreparedStatement deleteStudentStatement = connect.prepareStatement(deleteStudentData);
-                    deleteStudentStatement.setString(1, studentId);
-                    deleteStudentStatement.executeUpdate();
-
-                    PreparedStatement deletePaymentStatement = connect.prepareStatement(deletePaymentData);
-                    deletePaymentStatement.setString(1, studentId);
-                    deletePaymentStatement.executeUpdate();
-
-                    PreparedStatement deleteSemesterStatement = connect.prepareStatement(deleteSemesterData);
-                    deleteSemesterStatement.setString(1, SemesterPayments_semester.getText());
-                    deleteSemesterStatement.executeUpdate();
-
-                    alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Deleted!");
-                    alert.showAndWait();
-
-                    availableCourseShowListData();
-                    SemesterPaymentsClear();
-                } else {
-                    return;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void SemesterPaymentsClear() {
-        SemesterPayments_student.setText("");
-        SemesterPayments_semester.setText("");
-        SemesterPayments_price.setText("");
-    }
-
-    public ObservableList<courseData> availableCourseListData() {
-
-        ObservableList<courseData> listData = FXCollections.observableArrayList();
-
-        String sql = "SELECT * FROM semester";
-
-        connect = database.connectDb();
-
-        try {
-            courseData courseD;
-            prepare = connect.prepareStatement(sql);
-            result = prepare.executeQuery();
-
-            while (result.next()) {
-                courseD = new courseData(result.getString("student"),
-                        result.getString("semester"),
-                        result.getString("price"));
-
-                listData.add(courseD);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listData;
-    }
-
-    private ObservableList<courseData> availableCourseList;
-
-    public void availableCourseShowListData() {
-        availableCourseList = availableCourseListData();
-
-        SemesterPayments_col_student.setCellValueFactory(new PropertyValueFactory<>("student"));
-        SemesterPayments_col_semester.setCellValueFactory(new PropertyValueFactory<>("semester"));
-        SemesterPayments_col_price.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        SemesterPayments_tableView.setItems(availableCourseList);
-
-    }
-
-    public void SemesterPaymentsSelect() {
-        courseData courseD = SemesterPayments_tableView.getSelectionModel().getSelectedItem();
-
-        if (courseD == null) {
-            return;
-        }
-
-        SemesterPayments_student.setText(courseD.getStudent());
-        SemesterPayments_semester.setText(courseD.getSemester());
-        SemesterPayments_price.setText(courseD.getPrice());
-
-    }
-
-
-    public void ExamPaymentAdd() {
-        String insertData = "INSERT INTO student_payments (studentNum, sem, data, course, price) VALUES (?, ?, ?, ?, ?)";
-
-        connect = database.connectDb();
-
-        try {
-            Alert alert;
-
-            if (ExamPayment_studentNum.getText().isEmpty()
-                    || ExamPayment_sem.getText().isEmpty()
-                    || ExamPayment_course1.getText().isEmpty()
-                    || ExamPayment_data.getText().isEmpty()
-                    || ExamPayment_price.getText().isEmpty()) {
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please fill all blank fields");
-                alert.showAndWait();
-            } else {
-                String checkData = "SELECT * FROM student_payments WHERE studentNum = ?";
-
-                PreparedStatement checkStatement = connect.prepareStatement(checkData);
-                checkStatement.setString(1, ExamPayment_studentNum.getText());
-                ResultSet checkResult = checkStatement.executeQuery();
-
-                if (checkResult.next()) {
-                    alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Student: " + ExamPayment_studentNum.getText() + " already exists!");
-                    alert.showAndWait();
-                } else {
-                    PreparedStatement insertStatement = connect.prepareStatement(insertData);
-                    insertStatement.setString(1, ExamPayment_studentNum.getText());
-                    insertStatement.setString(2, ExamPayment_sem.getText());
-                    insertStatement.setString(3, ExamPayment_data.getText());
-                    insertStatement.setString(4, ExamPayment_course1.getText());
-                    insertStatement.setString(5, ExamPayment_price.getText());
-
-                    insertStatement.executeUpdate();
-
-                    alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Added!");
-                    alert.showAndWait();
-
-                    ExamPaymentShowListData();
-                    ExamPaymentClear();
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void ExamPaymentClear() {
-        ExamPayment_studentNum.setText("");
-        ExamPayment_data.setText("");
-        ExamPayment_course1.setText("");
-        ExamPayment_sem.setText("");
-        ExamPayment_price.setText("");
-    }
-
-    public ObservableList<examData> ExamPaymentListData() {
-        ObservableList<examData> listData = FXCollections.observableArrayList();
-
-        String sql = "SELECT * FROM student_payments";
-
-        connect = database.connectDb();
-
-        try {
-            examData examD;
-
-            prepare = connect.prepareStatement(sql);
-            result = prepare.executeQuery();
-
-            while (result.next()) {
-                examD = new examData(result.getString("studentNum"),
-                        result.getString("data"),
-                        result.getString("course"),
-                        result.getString("sem"),
-                        result.getString("price"));
-
-                listData.add(examD);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listData;
-    }
-
-    private ObservableList<examData> ExamPaymentList;
-
-    public void ExamPaymentShowListData() {
-        ExamPaymentList = ExamPaymentListData();
-
-        ExamPayment_col_studentNum.setCellValueFactory(new PropertyValueFactory<>("studentNum"));
-        ExamPayment_col_data.setCellValueFactory(new PropertyValueFactory<>("data"));
-        ExamPayment_col_course1.setCellValueFactory(new PropertyValueFactory<>("course1"));
-        ExamPayment_col_Sem.setCellValueFactory(new PropertyValueFactory<>("sem"));
-        ExamPayment_col_price.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        ExamPayment_tableView.setItems(ExamPaymentList);
-    }
-
-    public void ExamPaymentSelect() {
-        examData examD = ExamPayment_tableView.getSelectionModel().getSelectedItem();
-
-        if (examD == null) {
-            return;
-        }
-
-        ExamPayment_studentNum.setText(examD.getStudentNum());
-        ExamPayment_data.setText(examD.getData());
-        ExamPayment_course1.setText(examD.getCourse1());
-        ExamPayment_sem.setText(examD.getSem());
-        ExamPayment_price.setText(examD.getPrice());
-    }
-
-     @FXML
-    void ExamPaymentSearch() {
-    String searchText = ExamPayment_search.getText().toLowerCase();
-
-    FilteredList<examData> filteredData = new FilteredList<>(ExamPayment_tableView.getItems(), p ->
-            p.getCourse1().toLowerCase().contains(searchText) ||
-                    p.getData().toLowerCase().contains(searchText) ||
-                    p.getStudentNum().toLowerCase().contains(searchText) ||
-                    p.getSem().toLowerCase().contains(searchText) ||
-                    p.getPrice().toLowerCase().contains(searchText));
-
-    SortedList<examData> sortedData = new SortedList<>(filteredData);
-    sortedData.comparatorProperty().bind(ExamPayment_tableView.comparatorProperty());
-    ExamPayment_tableView.setItems(sortedData);
-}
-
-    private double x = 0;
-    private double y = 0;
-
-    public void logout() {
-
-        try {
-
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation Message");
-            alert.setHeaderText(null);
-            alert.setContentText("Are you sure you want to logout?");
-
-            Optional<ButtonType> option = alert.showAndWait();
-
-            if (option.get().equals(ButtonType.OK)) {
-
-
-                logout.getScene().getWindow().hide();
-
-
-                Parent root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
-                Stage stage = new Stage();
-                Scene scene = new Scene(root);
-
-                root.setOnMousePressed((MouseEvent event) -> {
-                    x = event.getSceneX();
-                    y = event.getSceneY();
-                });
-
-                root.setOnMouseDragged((MouseEvent event) -> {
-                    stage.setX(event.getScreenX() - x);
-                    stage.setY(event.getScreenY() - y);
-
-                    stage.setOpacity(.8);
-                });
-
-                root.setOnMouseReleased((MouseEvent event) -> {
-                    stage.setOpacity(1);
-                });
-
-                stage.initStyle(StageStyle.TRANSPARENT);
-
-                stage.setScene(scene);
-                stage.show();
-
-            } else {
-                return;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void displayUsername(){
-        username.setText(getData.username);
-    }
-
-    public void defaultNav(){
-        home_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3f82ae, #26bf7d);");
-    }
-
-    public void switchForm(ActionEvent event) {
-        if (event.getSource() == home_btn) {
-            home_form.setVisible(true);
-            addStudents_form.setVisible(false);
-            SemesterPayments_form.setVisible(false);
-            ExamPayment_form.setVisible(false);
-
-            home_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3f82ae, #26bf7d);");
-            addStudents_btn.setStyle("-fx-background-color:transparent");
-            SemesterPayments_btn.setStyle("-fx-background-color:transparent");
-            ExamPayment_btn.setStyle("-fx-background-color:transparent");
-
-            homeDisplayTotalEnrolledStudents();
-            homeDisplayMaleEnrolled();
-            homeDisplayFemaleEnrolled();
-            homeDisplayEnrolledMaleChart();
-            homeDisplayFemaleEnrolledChart();
-            homeDisplayTotalEnrolledChart();
-
-        } else if (event.getSource() == addStudents_btn) {
-            home_form.setVisible(false);
-            addStudents_form.setVisible(true);
-            SemesterPayments_form.setVisible(false);
-            ExamPayment_form.setVisible(false);
-
-            addStudents_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3f82ae, #26bf7d);");
-            home_btn.setStyle("-fx-background-color:transparent");
-            SemesterPayments_btn.setStyle("-fx-background-color:transparent");
-            ExamPayment_btn.setStyle("-fx-background-color:transparent");
-
-
-            addStudentsShowListData();
-            addStudentsYearList();
-            addStudentsGenderList();
-            addStudentsStatusList();
-            addStudentsCourseList();
-            addStudentsSearch();
-
-        } else if (event.getSource() == SemesterPayments_btn) {
-            home_form.setVisible(false);
-            addStudents_form.setVisible(false);
-            SemesterPayments_form.setVisible(true);
-            ExamPayment_form.setVisible(false);
-
-            SemesterPayments_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3f82ae, #26bf7d);");
-            addStudents_btn.setStyle("-fx-background-color:transparent");
-            home_btn.setStyle("-fx-background-color:transparent");
-            ExamPayment_btn.setStyle("-fx-background-color:transparent");
-
-            availableCourseShowListData();
-
-        } else if (event.getSource() == ExamPayment_btn) {
-            home_form.setVisible(false);
-            addStudents_form.setVisible(false);
-            SemesterPayments_form.setVisible(false);
-            ExamPayment_form.setVisible(true);
-
-            ExamPayment_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3f82ae, #26bf7d);");
-            addStudents_btn.setStyle("-fx-background-color:transparent");
-            SemesterPayments_btn.setStyle("-fx-background-color:transparent");
-            home_btn.setStyle("-fx-background-color:transparent");
-
-            ExamPaymentShowListData();
-            ExamPaymentSearch();
-
-        }
-    }
-
-    public void close() {
-        System.exit(0);
-    }
-
-    public void minimize() {
-        Stage stage = (Stage) main_form.getScene().getWindow();
-        stage.setIconified(true);
-    }
-
-   @Override
-public void initialize(URL location, ResourceBundle resources) {
-
-    addStudents_search.textProperty().addListener((observable, oldValue, newValue) -> addStudentsSearch());
-    ExamPayment_search.textProperty().addListener((observable, oldValue, newValue) -> ExamPaymentSearch());
-    displayUsername();
-    defaultNav();
-
-    homeDisplayTotalEnrolledStudents();
-    homeDisplayMaleEnrolled();
-    homeDisplayFemaleEnrolled();
-    homeDisplayEnrolledMaleChart();
-    homeDisplayFemaleEnrolledChart();
-    homeDisplayTotalEnrolledChart();
-
-    addStudentsShowListData();
-    addStudentsYearList();
-    addStudentsGenderList();
-    addStudentsStatusList();
-    addStudentsCourseList();
-
-    availableCourseShowListData();
-
-    ExamPaymentShowListData();
-
-}
