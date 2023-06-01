@@ -54,79 +54,125 @@ public class HelloController implements Initializable {
     private double y = 0;
 
 
-
-    public void loginAdmin(){
-
-        String sql = "SELECT * FROM admin WHERE username = ? and password = ?";
+ public void loginAdmin() {
+        String adminSql = "SELECT * FROM admin WHERE username = ?";
+        String userSql = "SELECT * FROM user WHERE studentNum = ? AND cpassword = ?";
 
         connect = database.connectDb();
 
-        try{
+        try {
             Alert alert;
 
-            prepare = connect.prepareStatement(sql);
-            prepare.setString(1, username.getText());
-            prepare.setString(2, password.getText());
-
-            result = prepare.executeQuery();
-
-            if(username.getText().isEmpty() || password.getText().isEmpty()){
+            if (username.getText().isEmpty() || password.getText().isEmpty()) {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Please fill all blank fields");
+                alert.setContentText("Please fill in all fields");
                 alert.showAndWait();
-            }else{
-                if(result.next()){
-//                    THEN PROCEED TO DASHBOARD FORM
+            } else {
+                prepare = connect.prepareStatement(adminSql);
+                prepare.setString(1, username.getText());
 
-                    getData.username = username.getText();
+                result = prepare.executeQuery();
 
-                    alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Login!");
-                    alert.showAndWait();
+                if (result.next()) {
+                    String storedPassword = result.getString("password");
+                    if (storedPassword.equals(password.getText())) {
+                        // Admin login
+                        getData.username = username.getText();
 
+                        alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Information Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Successfully logged in!");
+                        alert.showAndWait();
 
-                    loginBtn.getScene().getWindow().hide();
-                    Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+                        loginBtn.getScene().getWindow().hide();
+                        Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
 
-                    Stage stage = new Stage();
-                    Scene scene = new Scene(root);
+                        Stage stage = new Stage();
+                        Scene scene = new Scene(root);
 
-                    root.setOnMousePressed((MouseEvent event) ->{
-                        x = event.getSceneX();
-                        y = event.getSceneY();
-                    });
+                        root.setOnMousePressed((MouseEvent event) -> {
+                            x = event.getSceneX();
+                            y = event.getSceneY();
+                        });
 
-                    root.setOnMouseDragged((MouseEvent event) ->{
-                        stage.setX(event.getScreenX() - x);
-                        stage.setY(event.getScreenY() - y);
-                    });
+                        root.setOnMouseDragged((MouseEvent event) -> {
+                            stage.setX(event.getScreenX() - x);
+                            stage.setY(event.getScreenY() - y);
+                        });
 
-                    stage.initStyle(StageStyle.TRANSPARENT);
+                        stage.initStyle(StageStyle.TRANSPARENT);
 
-                    stage.setScene(scene);
-                    stage.show();
+                        stage.setScene(scene);
+                        stage.show();
+                    } else {
+                        // Incorrect password
+                        alert = new Alert(AlertType.ERROR);
+                        alert.setTitle("Error Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Incorrect password");
+                        alert.showAndWait();
+                    }
+                } else {
+                    prepare = connect.prepareStatement(userSql);
+                    prepare.setString(1, username.getText());
+                    prepare.setString(2, password.getText());
 
-                }else{
-                    alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Wrong Username/Password");
-                    alert.showAndWait();
+                    result = prepare.executeQuery();
+
+                    if (result.next()) {
+                        // Proceed to user dashboard
+                        getData.username = username.getText();
+
+                        alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Information Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Successfully logged in!");
+                        alert.showAndWait();
+
+                        loginBtn.getScene().getWindow().hide();
+                        Parent root = FXMLLoader.load(getClass().getResource("dashboard1.fxml"));
+
+                        Stage stage = new Stage();
+                        Scene scene = new Scene(root);
+
+                        stage.initStyle(StageStyle.TRANSPARENT);
+                        stage.setScene(scene);
+                        stage.show();
+                    } else {
+                        alert = new Alert(AlertType.ERROR);
+                        alert.setTitle("Error Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Invalid ID or password");
+                        alert.showAndWait();
+                    }
                 }
             }
-        }catch(Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void registerUser(ActionEvent event) throws IOException {
+        registerbtn.getScene().getWindow().hide();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     void close() {
         System.exit(0);
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
