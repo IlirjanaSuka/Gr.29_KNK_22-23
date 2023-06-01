@@ -1,15 +1,9 @@
 package com.example.demo16.controller;
 
-
-
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ResourceBundle;
-
 import com.example.demo16.database.database;
 import com.example.demo16.repository.getData;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,6 +19,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
 
@@ -33,6 +33,9 @@ public class HelloController implements Initializable {
 
     @FXML
     private Button loginBtn;
+
+    @FXML
+    private Button registerbtn;
 
     @FXML
     private AnchorPane main_form;
@@ -47,8 +50,9 @@ public class HelloController implements Initializable {
     private PreparedStatement prepare;
     private ResultSet result;
 
-    private double x= 0 ;
-    private double y= 0;
+    private double x = 0;
+    private double y = 0;
+
 
     public void loginAdmin(){
 
